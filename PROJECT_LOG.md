@@ -50,3 +50,26 @@ Created this project log after inspecting the project brief, development guidanc
 - Define and calibrate score-band boundaries and descriptors using synthetic conversations.
 - Implement the transcript review/editing flow, assessment, response validation, participant averages, privacy and length-limit behavior, copyable results, and assessment challenges.
 - Add tests for scoring, aggregation, uncertainty, and transcript handling against the stated requirements.
+
+## Log entry — 2026-11-23
+
+Added a local research prototype using the IBM Argument Quality Ranking 30k
+dataset. A TF-IDF/Ridge baseline was trained on 20,974 arguments, selected on
+3,208 development examples, and evaluated on 6,315 test examples. Test MAE was
+15.05/100 versus 15.75 for a constant baseline; Pearson correlation was 0.379.
+
+Added a local Qwen rubric adapter, response validation, application-calculated
+participant averages, transcript-review JSON, challenge comparisons, reproducible
+asset downloads, evaluation records, and eight synthetic owner-review cases.
+All 15 application tests passed. The larger Qwen model passed two of three coarse
+smoke cases but missed a reasoned argument in the embedded-instruction case.
+
+The user selected local models and this computer only, without paid services.
+The IBM label remains separate from the four-criterion rubric. Qwen was not
+fine-tuned on IBM data. Score bands are uncalibrated; the web app and human
+validation remain outstanding. This entry supersedes the earlier "no source
+code or tests" snapshot without claiming full product completion.
+
+See README.md for setup and validation-summary.json for the recorded limitations.
+
+Drafted with Codex (OpenAI), based on the author's direction.

@@ -1,0 +1,164 @@
+ARGUMENT ASSESSMENT — LOCAL RESEARCH PROTOTYPE
+
+ARCHIVE NOTE: These notes describe the original local experiment bundle.
+The GitHub repository contains source and results, not installed dependencies,
+CSV downloads, runtime binaries or trained weights. Follow README.md for portable
+repository setup; its instructions supersede the machine-specific setup below.
+
+This is an attempted model implementation, not a completed or validated web app.
+It runs on this computer without a paid API. No training was done on a remote service.
+
+WHAT WAS BUILT
+1. A trained word/character TF-IDF + Ridge regression model predicting the IBM WA
+   overall argument-quality label. Weights: weights/ibm-quality.joblib.
+2. A local pretrained Qwen language model adapter for the repository's structured
+   four-criterion assessment contract. Qwen was NOT fine-tuned on IBM data.
+3. Validation of JSON structure, turn/speaker identities, exact quotations,
+   reviewed groupings, summary references, arithmetic and participant averages.
+4. A command-line workflow for transcript preparation, manual review, assessment
+   and challenge comparison. Eight synthetic cases are included for owner review.
+
+The IBM prediction is returned separately. It is NOT substituted for any of the
+four criterion scores, their mean, or a participant's average. IBM's annotations
+describe suitability for use in a speech, not this application's four-part rubric.
+The dataset does not teach conversation segmentation, explanations, sarcasm,
+counterargument handling, or the distinction between facts and values.
+
+RUN ON THIS COMPUTER
+Open PowerShell in this folder. The launcher locates the bundled Codex Python
+runtime and uses the included dependencies folder. Python 3.12 on Windows x64
+can be used on another computer with: python -m pip install -r requirements.txt
+The launcher uses that computer's python command if the bundled path is absent.
+
+Run tests:
+  .\run.ps1 test
+
+Score one short argument with the trained IBM model:
+  'We should walk because the park is nearby.' | .\run.ps1 quality
+
+Start the local language model in one terminal (Ctrl+C stops it):
+  .\run.ps1 server
+
+In a second terminal, assess the synthetic reviewed example:
+  Get-Content -Raw .\examples\reviewed.json | .\run.ps1 assess
+
+For your own transcript, first redact identifying details and format one turn per
+line as Speaker: text. Pipe it to .\run.ps1 prepare. Copy the resulting JSON into
+an editor, correct speakers and turns, add argument_groups as arrays of exact
+substrings if you want explicit grouping control, and set reviewed to true.
+An empty argument_groups array means not assessable. Omit the field to ask the
+model to detect arguments; those detections still need human review.
+Optionally supply counterargument_turn_ids per turn: [] confirms that no relevant
+counterargument is present and enforces a neutral score of 50. Nonempty arrays
+list reviewed relevant turn IDs. Without this field, the model judges relevance.
+The current counterargument review field applies to the whole turn; for distinct
+arguments with different relevant objections, review each returned score manually.
+
+Input limit: 4,000 characters across turn text and optional context. There is also
+an 8,192-token model context limit including prompt and output. The model server
+may reject a request that fits the character limit but exceeds its token budget.
+Incomplete or invalid responses fail; there is no silent partial analysis.
+
+To challenge an assessment, pipe a JSON object to .\run.ps1 challenge with keys:
+  input: the original reviewed input object
+  original: the original output object
+  challenge: a brief explanation of the concern
+The result includes original and revised assessments plus turn/summary changes.
+This is a JSON comparison, not a graphical side-by-side interface.
+
+PRIVACY
+The assessment client calls only http://127.0.0.1:8766. The bundled model server
+binds only to loopback, runs offline, and disables logs and prompt caching.
+Application code does not save real transcripts or results. Terminal history,
+manual file saving, OS paging and other local software are outside that promise.
+Synthetic evaluation output is deliberately saved as reproducible test material.
+Do not expose this research server on a public network or use it as a multi-user
+service. No accounts, access-control system or hosted service have been built.
+
+EVALUATION
+Official IBM splits: train 20,974; development 3,208; test 6,315.
+No exact argument overlap or topic overlap was found between these splits.
+Feature vocabulary and IDF are fitted on training data only. Ridge alpha was
+selected from 1, 10 and 100 by development RMSE; alpha 10 was selected. Test data
+was used only after selection. No development refit was performed.
+
+Held-out test results (0–100 display scale):
+  MAE: 15.05, versus 15.75 for the training-mean constant baseline.
+  RMSE: 18.52, versus 19.93 for the constant baseline.
+  Pearson correlation: 0.379. Spearman correlation: 0.350.
+These are modest baseline results. Errors are large enough that small score
+differences should not be interpreted as meaningful. No per-example confidence
+interval has been calibrated. Full results and per-topic metrics: evaluation.json.
+
+The first Qwen 0.6B test was structurally valid but semantically flawed: it called
+a greeting a disagreement, treated asserted claims too much like support, and
+included score-inconsistent prose. Its original result is preserved in
+examples/local-model-result.json. A larger Qwen 1.7B model and clearer grounding
+instructions were then tried. See local-evaluation.json for the actual results.
+Because both model and prompt changed, this is not a controlled model comparison.
+The 1.7B greeting case classified both turns correctly but described a question
+as a greeting. Its price-comparison case flagged unverified evidence but still
+assigned evidence 75 and listed the absence of counterarguments as uncertainty.
+These are examples of why valid JSON and a passing smoke check are insufficient.
+The embedded-instruction case failed: the model correctly did not give the
+instruction a score, but incorrectly marked the other speaker's reasoned park
+proposal not assessable. Two of three coarse smoke cases passed; one failed.
+This is not evidence that the injected instruction caused the failure, nor a
+comprehensive test of prompt-injection resistance. The live server was stopped
+after testing to release memory. Use the server command above to start it again.
+Passing structural checks or coarse semantic smoke checks does not establish
+fairness, calibrated scores, robustness to prompt injection, or factual accuracy.
+
+REQUIREMENTS STATUS
+Implemented and unit-tested: arithmetic; equal argument weighting; no numeric
+score for not-assessable turns; limited-sample flags; exact-quote and identity
+validation; reviewed group boundaries; length rejection; invalid summary refs.
+All 15 unit/CLI tests passed, including a mocked challenge comparison. This does
+not mean the live language model's revisions have been validated by human judges.
+Model-dependent and unvalidated: logical/evidence judgment, relevance, detecting
+complete arguments, ambiguous language, values, neutral summaries and useful
+suggestions. Prompt instructions are not guarantees of correct behavior.
+Partial: transcript correction and challenge comparison are available as JSON;
+redaction is manual; privacy applies to the local prototype described above.
+Not built: web UI, graphical review, graphical side-by-side challenge display,
+automatic redaction, hosted multi-user access, trained four-criterion model.
+Not calibrated: five score bands. score_band is intentionally null. Review
+examples/review-cases.json before assigning numeric boundaries. No model has yet
+been demonstrated to meet the full repository criteria.
+
+NEXT TRAINING STEP
+Review synthetic cases and label real, consented conversational arguments with
+four separate criterion scores, assessability, boundaries, relevant objections,
+exact supporting quotations and uncertainty. Have multiple reviewers assess
+agreement. Keep whole conversations and topics separated across train/dev/test.
+Only then train or fine-tune a rubric model and evaluate it against those labels.
+The included lexical baseline provides a reproducible starting point, not an
+alternative to those missing labels.
+
+REPRODUCIBILITY AND SOURCES
+Re-run .\run.ps1 train to reproduce the baseline using the included CSV files.
+This overwrites its generated model and evaluation report; copy them first if
+you want to retain a previous experiment. Exact dataset hashes are in evaluation.json.
+Dataset revision observed: 590726b3765b1b90c5e53a17e3b1f77d92d3aa8a.
+https://huggingface.co/datasets/ibm-research/argument_quality_ranking_30k
+Gretz et al. (2019), A Large-scale Dataset for Argument Quality Ranking:
+Construction and Analysis. https://arxiv.org/abs/1911.11408
+Dataset card is preserved in data/DATASET_CARD.md. Its metadata says CC-BY-3.0,
+while its license section says CC-BY-SA-3.0 and credits IBM/Wikipedia; this
+inconsistency is preserved rather than silently resolved. Check with the dataset
+publisher before broader redistribution or commercial release.
+
+Pretrained model: Qwen/Qwen3-0.6B-GGUF, Q8_0, Apache 2.0.
+https://huggingface.co/Qwen/Qwen3-0.6B-GGUF
+SHA256: 9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031
+Larger model: unsloth/Qwen3-1.7B-GGUF, Q4_K_M (Qwen3-1.7B quantization).
+https://huggingface.co/unsloth/Qwen3-1.7B-GGUF
+SHA256: b139949c5bd74937ad8ed8c8cf3d9ffb1e99c866c823204dc42c0d91fa181897
+Runtime: llama.cpp b12657, Windows CPU x64; license included in runtime.
+https://github.com/ggml-org/llama.cpp/releases/tag/b12657
+Models were run with greedy decoding, seed 731, thinking disabled and no tools.
+No external factual verification is performed during assessment.
+
+Drafted with Codex (OpenAI), based on the author's direction.
+Synthetic model assessment examples were generated locally with Qwen as identified
+above; they are distinct from Codex's drafting and implementation assistance.

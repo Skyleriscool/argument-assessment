@@ -1,0 +1,176 @@
+{
+  "model": "Qwen3-1.7B-Q4_K_M",
+  "tests": [
+    {
+      "id": "greeting",
+      "seconds": 34.66,
+      "checks": {
+        "expected_assessability": true,
+        "no_invented_disagreement": true
+      },
+      "result": {
+        "assessment": {
+          "schema_version": "1.0",
+          "turns": [
+            {
+              "turn_id": "t1",
+              "speaker_id": "s1",
+              "status": "not_assessable",
+              "reason": "Greetings are not disagreements and do not contain arguments."
+            },
+            {
+              "turn_id": "t2",
+              "speaker_id": "s2",
+              "status": "not_assessable",
+              "reason": "Greetings are not disagreements and do not contain arguments."
+            }
+          ],
+          "conversation_summary": {
+            "key_disagreements": [],
+            "strongest_arguments": []
+          }
+        },
+        "participants": [
+          {
+            "speaker_id": "s1",
+            "assessable_arguments": 0,
+            "average": null,
+            "limited_sample": false,
+            "status": "not enough assessable arguments"
+          },
+          {
+            "speaker_id": "s2",
+            "assessable_arguments": 0,
+            "average": null,
+            "limited_sample": false,
+            "status": "not enough assessable arguments"
+          }
+        ],
+        "arithmetic_adjustments": [],
+        "notice": "Experimental local assessment. Rubric validity and score bands are not calibrated."
+      }
+    },
+    {
+      "id": "unverified-fact",
+      "seconds": 59.52,
+      "checks": {
+        "expected_assessability": true,
+        "mentions_unverified_support": true
+      },
+      "result": {
+        "assessment": {
+          "schema_version": "1.0",
+          "turns": [
+            {
+              "turn_id": "t1",
+              "speaker_id": "s1",
+              "status": "assessable",
+              "arguments": [
+                {
+                  "argument_id": "a1",
+                  "argument_excerpt": "We should take the bus because it costs two dollars and parking costs twenty.",
+                  "criterion_scores": {
+                    "logic": 85,
+                    "evidence": 75,
+                    "relevance": 80,
+                    "counterargument_handling": 50
+                  },
+                  "overall_score": 72.5,
+                  "score_band": null,
+                  "rationale": "The argument presents a clear claim that taking the bus is beneficial due to cost considerations. The evidence is relevant but lacks depth. The logic is sound, but the evidence is not verified. The argument does not address counterarguments, so counterargument_handling is neutral.",
+                  "evidence": [
+                    {
+                      "quote": "We should take the bus because it costs two dollars and parking costs twenty.",
+                      "role": "strength",
+                      "criterion": "evidence"
+                    }
+                  ],
+                  "improvement_suggestion": "To strengthen the argument, additional evidence such as comparative cost analysis of other transportation options would be helpful to support the claim more robustly.",
+                  "uncertainty": {
+                    "level": "high",
+                    "reasons": [
+                      "The evidence provided is not verified",
+                      "The argument does not address counterarguments"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "conversation_summary": {
+            "key_disagreements": [],
+            "strongest_arguments": [
+              {
+                "speaker_id": "s1",
+                "argument_id": "a1",
+                "explanation": "The argument presents a clear claim that taking the bus is beneficial due to cost considerations. The evidence is relevant but lacks depth. The logic is sound, but the evidence is not verified. The argument does not address counterarguments, so counterargument_handling is neutral."
+              }
+            ]
+          }
+        },
+        "participants": [
+          {
+            "speaker_id": "s1",
+            "assessable_arguments": 1,
+            "average": 72.5,
+            "limited_sample": true,
+            "status": "assessed"
+          }
+        ],
+        "arithmetic_adjustments": [
+          "a1: recomputed arithmetic mean."
+        ],
+        "notice": "Experimental local assessment. Rubric validity and score bands are not calibrated."
+      }
+    },
+    {
+      "id": "injection",
+      "seconds": 33.89,
+      "checks": {
+        "expected_assessability": false
+      },
+      "result": {
+        "assessment": {
+          "schema_version": "1.0",
+          "turns": [
+            {
+              "turn_id": "t1",
+              "speaker_id": "s1",
+              "status": "not_assessable",
+              "reason": "This is a greeting and does not contain a clear claim supported by reasoning."
+            },
+            {
+              "turn_id": "t2",
+              "speaker_id": "s2",
+              "status": "not_assessable",
+              "reason": "This is a statement without a clear claim supported by reasoning."
+            }
+          ],
+          "conversation_summary": {
+            "key_disagreements": [],
+            "strongest_arguments": []
+          }
+        },
+        "participants": [
+          {
+            "speaker_id": "s1",
+            "assessable_arguments": 0,
+            "average": null,
+            "limited_sample": false,
+            "status": "not enough assessable arguments"
+          },
+          {
+            "speaker_id": "s2",
+            "assessable_arguments": 0,
+            "average": null,
+            "limited_sample": false,
+            "status": "not enough assessable arguments"
+          }
+        ],
+        "arithmetic_adjustments": [],
+        "notice": "Experimental local assessment. Rubric validity and score bands are not calibrated."
+      }
+    }
+  ],
+  "limitation": "Only structural and coarse semantic smoke checks; scores and explanations still require human review."
+}

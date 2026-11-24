@@ -1,0 +1,168 @@
+{
+  "target": "WA",
+  "scale": "0 to 1; multiply by 100 only for display",
+  "input": "argument text only",
+  "selection": "minimum development RMSE; no refit on dev",
+  "counts": {
+    "train": 20974,
+    "dev": 3208,
+    "test": 6315
+  },
+  "split_audit": {
+    "train_dev": {
+      "exact_argument_overlap": 0,
+      "topic_overlap": 0
+    },
+    "train_test": {
+      "exact_argument_overlap": 0,
+      "topic_overlap": 0
+    },
+    "dev_test": {
+      "exact_argument_overlap": 0,
+      "topic_overlap": 0
+    }
+  },
+  "development_candidates": [
+    {
+      "alpha": 1.0,
+      "mae": 0.16024877131878523,
+      "rmse": 0.1956538612550502,
+      "pearson": 0.33653634691836076,
+      "spearman": 0.29384825867926956
+    },
+    {
+      "alpha": 10.0,
+      "mae": 0.14774867834447633,
+      "rmse": 0.18147724946501645,
+      "pearson": 0.37978577739821745,
+      "spearman": 0.3376120664615948
+    },
+    {
+      "alpha": 100.0,
+      "mae": 0.14824769884116548,
+      "rmse": 0.18537641986935677,
+      "pearson": 0.35406696599778115,
+      "spearman": 0.32235842140642124
+    }
+  ],
+  "selected_alpha": 10.0,
+  "test": {
+    "mae": 0.15048316968324582,
+    "rmse": 0.185189862030255,
+    "pearson": 0.3788320033143915,
+    "spearman": 0.35016636003539947
+  },
+  "test_train_mean_baseline": {
+    "mae": 0.15754255665331082,
+    "rmse": 0.19932493204080462,
+    "pearson": null,
+    "spearman": null
+  },
+  "test_by_topic": {
+    "Holocaust denial should be a criminal offence": {
+      "mae": 0.15890855290860206,
+      "rmse": 0.19698278736430674,
+      "pearson": 0.2845631105798499,
+      "spearman": 0.2877760179730824
+    },
+    "Social media brings more harm than good": {
+      "mae": 0.15172748019520704,
+      "rmse": 0.17443994044058347,
+      "pearson": 0.3205564250406565,
+      "spearman": 0.26548843721178267
+    },
+    "The use of public defenders should be mandatory": {
+      "mae": 0.14250439312120997,
+      "rmse": 0.17948377011898786,
+      "pearson": 0.31912382928232064,
+      "spearman": 0.2802447249800456
+    },
+    "We should abolish the Olympic Games": {
+      "mae": 0.15652894703286083,
+      "rmse": 0.18567475617887602,
+      "pearson": 0.3453283891494658,
+      "spearman": 0.3238764834951142
+    },
+    "We should abolish the three-strikes laws": {
+      "mae": 0.1477420725638451,
+      "rmse": 0.1780876719753984,
+      "pearson": 0.3473953479340021,
+      "spearman": 0.33122429374787205
+    },
+    "We should adopt atheism": {
+      "mae": 0.15857506794664078,
+      "rmse": 0.20428951728445077,
+      "pearson": 0.36924673659563123,
+      "spearman": 0.3760408720435231
+    },
+    "We should adopt libertarianism": {
+      "mae": 0.16054672497397435,
+      "rmse": 0.20217473639354294,
+      "pearson": 0.4163184095915141,
+      "spearman": 0.4160802138445699
+    },
+    "We should ban algorithmic trading": {
+      "mae": 0.1409954070490265,
+      "rmse": 0.17093351149867667,
+      "pearson": 0.4547028233844467,
+      "spearman": 0.3911769137989372
+    },
+    "We should ban factory farming": {
+      "mae": 0.15258874406884906,
+      "rmse": 0.177596641990419,
+      "pearson": 0.4139575801166852,
+      "spearman": 0.353940049135825
+    },
+    "We should ban missionary work": {
+      "mae": 0.13445418723014524,
+      "rmse": 0.16445846443247172,
+      "pearson": 0.4343515703648193,
+      "spearman": 0.40948885008423597
+    },
+    "We should ban private military companies": {
+      "mae": 0.14193502162939314,
+      "rmse": 0.18351417776964704,
+      "pearson": 0.4538011772341596,
+      "spearman": 0.4210128517599345
+    },
+    "We should ban targeted killing": {
+      "mae": 0.15185096985380148,
+      "rmse": 0.18890134012998222,
+      "pearson": 0.41267055269671676,
+      "spearman": 0.3724627774490182
+    },
+    "We should legalize cannabis": {
+      "mae": 0.1489509802376915,
+      "rmse": 0.180266854793135,
+      "pearson": 0.36774827235346774,
+      "spearman": 0.3081158094547304
+    },
+    "We should prohibit school prayer": {
+      "mae": 0.15293790584481137,
+      "rmse": 0.18909292333985417,
+      "pearson": 0.3125812593630832,
+      "spearman": 0.2777854346920462
+    },
+    "We should prohibit women in combat": {
+      "mae": 0.15937291994656153,
+      "rmse": 0.2001289360407839,
+      "pearson": 0.3642222275277204,
+      "spearman": 0.3375201969445204
+    }
+  },
+  "versions": {
+    "numpy": "2.5.5",
+    "sklearn": "1.9.1"
+  },
+  "sha256": {
+    "train": "55910fd3599ec54c088d4e9c55f745ff814d153f13c1a7c23a4d31f167cf16f7",
+    "dev": "067008db955c34d508008bedce4884a07988ff758cef2bcd6584f2857944cfd1",
+    "test": "18c0f0491e0206558f24dbe79b91901bd662e5ec2b1bd9d13ab740660b0c196f"
+  },
+  "limitations": [
+    "Not four-criterion supervision.",
+    "No conversation or rationale supervision.",
+    "No validated individual confidence interval.",
+    "Lexical baseline; not a factual verifier."
+  ]
+}
