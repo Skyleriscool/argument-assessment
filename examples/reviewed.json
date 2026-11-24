@@ -1,0 +1,8 @@
+{
+  "reviewed": true,
+  "context": "Two friends are discussing where to meet. Synthetic test, not a real transcript.",
+  "turns": [
+    {"turn_id":"t1","speaker_id":"s1","speaker_label":"Alex","text":"Let's meet at the library because it is free and we both want to save money.","argument_groups":["Let's meet at the library because it is free and we both want to save money."],"counterargument_turn_ids":[]},
+    {"turn_id":"t2","speaker_id":"s2","speaker_label":"Blair","text":"Hello!","argument_groups":[],"counterargument_turn_ids":[]}
+  ]
+}

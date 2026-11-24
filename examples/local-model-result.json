@@ -1,1 +1,80 @@
-
+{
+  "assessment": {
+    "schema_version": "1.0",
+    "turns": [
+      {
+        "turn_id": "t1",
+        "speaker_id": "s1",
+        "status": "assessable",
+        "arguments": [
+          {
+            "argument_id": "1",
+            "argument_excerpt": "Let's meet at the library because it is free and we both want to save money.",
+            "criterion_scores": {
+              "logic": 100,
+              "evidence": 50,
+              "relevance": 75,
+              "counterargument_handling": 50
+            },
+            "overall_score": 68.75,
+            "score_band": null,
+            "rationale": "This argument directly supports the conclusion that meeting at the library is a good choice. It provides factual claims about cost and purpose, which are supported by the text. No counterarguments are present, so the score is 100.",
+            "evidence": [
+              {
+                "quote": "Let's meet at the library because it is free and we both want to save money.",
+                "role": "strength",
+                "criterion": "logic"
+              }
+            ],
+            "improvement_suggestion": "Add more specific details about the library's offerings to strengthen the argument's relevance and support.",
+            "uncertainty": {
+              "level": "low",
+              "reasons": [
+                "The argument is general and lacks specific details."
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "turn_id": "t2",
+        "speaker_id": "s2",
+        "status": "not_assessable",
+        "reason": "No argument is made in this turn. The text is a greeting and does not contain a claim or reasoning."
+      }
+    ],
+    "conversation_summary": {
+      "key_disagreements": [
+        "Alex's argument about meeting at the library",
+        "Blair's greeting"
+      ],
+      "strongest_arguments": [
+        {
+          "speaker_id": "s1",
+          "argument_id": "1",
+          "explanation": "The argument directly supports the conclusion that meeting at the library is a good choice. It provides factual claims about cost and purpose, which are supported by the text. No counterarguments are present, so the score is 100."
+        }
+      ]
+    }
+  },
+  "participants": [
+    {
+      "speaker_id": "s1",
+      "assessable_arguments": 1,
+      "average": 68.75,
+      "limited_sample": true,
+      "status": "assessed"
+    },
+    {
+      "speaker_id": "s2",
+      "assessable_arguments": 0,
+      "average": null,
+      "limited_sample": false,
+      "status": "not enough assessable arguments"
+    }
+  ],
+  "arithmetic_adjustments": [
+    "1: recomputed arithmetic mean."
+  ],
+  "notice": "Experimental local assessment. Rubric validity and score bands are not calibrated."
+}
