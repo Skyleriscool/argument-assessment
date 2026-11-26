@@ -1,4 +1,4 @@
-param([ValidateSet('quality','prepare','assess','challenge','train','test','server')][string]$Command='test')
+param([ValidateSet('quality','prepare','assess','challenge','train','test','server','ui')][string]$Command='ui')
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
 if ($Command -eq 'server') {
@@ -7,7 +7,9 @@ if ($Command -eq 'server') {
 }
 $pythonExe=if(Test-Path "$root\.venv\Scripts\python.exe"){"$root\.venv\Scripts\python.exe"}else{'python'}
 $env:OPENBLAS_NUM_THREADS='2'
-if($Command -eq 'train'){ & $pythonExe "$root\train.py" }
+if($Command -eq 'ui'){ & $pythonExe "$root\web_app.py" }
+elseif($Command -eq 'train'){ & $pythonExe "$root\train.py" }
 elseif($Command -eq 'test'){ & $pythonExe -m unittest discover -s $root -p 'test_*.py' -v }
 else { $input | & $pythonExe "$root\assess.py" $Command }
 exit $LASTEXITCODE
+

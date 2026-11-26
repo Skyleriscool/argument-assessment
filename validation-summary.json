@@ -9,16 +9,18 @@
     "constant_baseline_mae_on_100_point_scale": 15.754255665331082,
     "test_pearson": 0.3788320033143915
   },
-  "application_tests": {"passed": 15, "failed": 0},
+  "application_tests": {"passed": 24, "failed": 0},
+  "ui_validation": {"date": "2026-11-26", "checks": ["Blank initial state", "Review confirmation before analysis", "Offline error preserves input", "Real IBM score only after click", "Edits hide stale output", "Narrow-screen layout"], "challenge_test": "HTTP integration with mocked model; live model revisions not revalidated"},
   "larger_local_model_smoke_cases": {"passed": 2, "failed": 1},
   "observed_limitations": [
     "Missed a reasoned argument in the embedded-instruction case.",
     "Misdescribed a question as a greeting.",
     "Unverified evidence received a relatively high evidence score; numeric rubric calibration is absent.",
     "No human evaluation of fairness, scoring consistency or explanation quality has been completed.",
-    "No web application has been implemented."
+    "Local single-user UI implemented; not a hosted public service."
   ],
   "score_bands": "Unset pending owner review and calibration",
   "local_server": "Stopped after evaluation",
-  "reproduction": "See README.txt; evaluate_local.py requires a running local server."
+  "reproduction": "See README.md; evaluate_local.py requires a running local model server. Start the UI with python web_app.py."
 }
+

@@ -2,7 +2,37 @@
 
 A local research prototype for assessing arguments, with a trained IBM-quality
 baseline and an experimental Qwen adapter for the four-criterion model contract.
-**It does not yet meet the full product brief and is not a completed web app.**
+**It includes a local web interface, but the model remains experimental and does
+not yet meet the full product brief.**
+
+## Type first, then analyze
+
+After installing dependencies, run `python web_app.py` (or `.\run.ps1 ui`) and open
+**http://127.0.0.1:8765**. Running `run.ps1` without arguments now starts the web
+server. It prints the URL; it does not automatically score anything.
+
+1. Type or paste a conversation, or choose a quick single-argument IBM score.
+   Nothing is scored while you type; results start hidden.
+2. For conversations, correct detected speakers and turns. Add/remove turns,
+   optionally set exact argument groups, and confirm your review.
+3. Click Analyze to see scores, reasoning, quotations, uncertainty and participant
+   averages. Editing the input hides obsolete results.
+
+The responsive page includes optional context, a 4,000-character limit, example,
+clear and copy buttons, loading/error states, and side-by-side challenge results.
+Full conversations require `.\run.ps1 server` in another terminal after model setup
+below. Quick scores require training the IBM model first. Missing services produce
+an actionable error while keeping your input; there are no invented fallback scores.
+
+The UI uses a local Python standard-library HTTP server and plain HTML/CSS/JS.
+It saves no transcripts, uses no browser storage, and accepts only same-origin
+local API requests. It is not a public or multi-user hosting server.
+
+All **24 Python tests pass**, including nine HTTP tests covering input/review
+gating, offline errors, challenges and cross-origin rejection. Browser checks
+verified blank state, review gating, offline recovery, a real IBM prediction after
+clicking, stale-result clearing and narrow-screen layout. Model judgment quality
+has not been revalidated by those interface checks.
 
 ## What works, and what remains uncertain
 
@@ -12,7 +42,7 @@ baseline and an experimental Qwen adapter for the four-criterion model contract.
 - The local rubric assessor returns logic, evidence, relevance and counterargument
   scores. Application code validates quotations and identities, recalculates
   means, and produces participant averages without ranking participants.
-- **15 application tests passed.** The larger local model passed two of three
+- **24 application tests passed.** The larger local model previously passed two of three
   coarse smoke cases but missed a reasoned argument in the embedded-instruction
   case. Correct JSON does not establish fair or reliable judgment.
 - IBM labels do not supervise the four separate criteria, conversation structure
@@ -89,8 +119,8 @@ history and OS paging are outside that guarantee. Saved examples are synthetic.
 
 For `challenge`, submit JSON with `input` (reviewed input), `original` (previous
 output), and `challenge` (your concern). The response includes both assessments
-and changes. A revised answer is not automatically more correct. This is a CLI
-comparison, not the graphical side-by-side interface proposed in the brief.
+and changes. A revised answer is not automatically more correct. The CLI returns
+JSON; the web interface displays original and revised assessments side by side.
 
 ## Attribution and next work
 
@@ -103,9 +133,10 @@ The local model is [Qwen3-1.7B, quantized by Unsloth](https://huggingface.co/uns
 consult its upstream license when distributing weights.
 
 Next work is human review and rubric labeling, calibration, stronger model
-evaluation, and the web application's review and challenge workflows. The product
+evaluation, and usability testing of the review and challenge workflows. The product
 brief and provider-neutral model contract remain the source of requirements.
 
 Drafted with Codex (OpenAI), based on the author's direction.
 Saved local-model assessments were generated with the Qwen models identified in
 the research notes; they are experimental outputs, not human ground truth.
+

@@ -73,3 +73,20 @@ code or tests" snapshot without claiming full product completion.
 See README.md for setup and validation-summary.json for the recorded limitations.
 
 Drafted with Codex (OpenAI), based on the author's direction.
+
+## Log entry — 2026-11-26
+
+Added a local input-first web UI. Users type or paste text, review editable
+speakers/turns/groups, and explicitly request analysis. Results remain hidden
+until a successful response; input edits invalidate previous results. Added quick
+IBM scoring, loading and recoverable errors, readable rubric/participant results,
+copying, and side-by-side challenge comparisons. The default PowerShell launcher
+now starts the UI; existing CLI commands remain available.
+
+All 24 Python tests passed. Browser checks covered blank state, review gating,
+offline model recovery, an actual IBM quick-score result, stale-result clearing,
+and narrow-screen layout. The challenge HTTP test uses a mocked model; this work
+does not establish new evidence for the language model's accuracy or fairness.
+Full assessments still require the locally running model. No external hosting,
+paid service, transcript persistence or new numerical score bands were added.
+
