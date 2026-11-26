@@ -1,5 +1,30 @@
 # Argument Assessment
 
+## Website on GitHub Pages
+
+**[Open the browser edition](https://skyleriscool.github.io/argument-assessment/)**
+
+Type a short English argument and click **Score my argument**. The trained IBM
+TF-IDF/Ridge model runs in JavaScript on your device. The site downloads about
+2.6 MB of model weights on the first request; your text stays in the browser.
+There is no installation, account, paid API, or transcript storage.
+
+This public edition gives one overall IBM quality estimate. It does not run
+Python or Qwen, generate explanations, or provide the four rubric subscores.
+The full local app is retained below. See [MODEL_CARD.md](MODEL_CARD.md) for scope,
+attribution and limitations, and [browser-validation.json](browser-validation.json)
+for Python/JavaScript prediction parity results.
+
+GitHub Pages serves `main` → `/ (root)`. The static entry point is `index.html`,
+with relative asset paths and `.nojekyll`; future commits to the publishing branch
+redeploy the site. To preview the static site, run `python -m http.server 8000`
+from the repository root and visit `http://localhost:8000`.
+
+To regenerate the browser weights after training, run `python export_browser_model.py`.
+Run `node --test test_browser_score.cjs` for engine checks and
+`python validate_browser_model.py` for parity against the original Python model
+and downloaded test CSV. These checks do not establish better model accuracy.
+
 A local research prototype for assessing arguments, with a trained IBM-quality
 baseline and an experimental Qwen adapter for the four-criterion model contract.
 **It includes a local web interface, but the model remains experimental and does

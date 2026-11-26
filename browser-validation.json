@@ -1,0 +1,9 @@
+{
+  "cases": 310,
+  "held_out_examples": 300,
+  "synthetic_edge_cases": 10,
+  "max_absolute_difference_on_100_point_scale": 1.659045555868488e-05,
+  "tolerance": 0.001,
+  "passed": true,
+  "scope": "Implementation parity only; not new model-quality evidence."
+}

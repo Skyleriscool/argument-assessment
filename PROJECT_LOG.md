@@ -90,3 +90,14 @@ does not establish new evidence for the language model's accuracy or fairness.
 Full assessments still require the locally running model. No external hosting,
 paid service, transcript persistence or new numerical score bands were added.
 
+## GitHub Pages browser edition — 2026-11-26
+
+At the user's request, added a free static website for the repository's github.io
+address. The user chose a browser-only IBM scorer rather than hosting the full
+model on a separate backend. Exported the fitted baseline to JSON, implemented
+matching JavaScript TF-IDF/Ridge inference, and added an input-first static page.
+Argument text stays in browser memory. The full local Qwen app remains separate;
+the public page explicitly limits its output to a single experimental IBM estimate.
+Added model attribution and implementation parity tests, without retraining or
+claiming that the browser edition meets the full conversation-assessment rubric.
+

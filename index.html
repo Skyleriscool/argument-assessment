@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore the quality of a short argument with a free, private, browser-based research model.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<title>Argument Assessment · Browser Edition</title>
+<link rel="stylesheet" href="./pages.css"><script src="./score-engine.js" defer></script><script src="./pages.js" defer></script>
+</head>
+<body>
+<header><a class="brand" href="./">Argument<span>Assessment</span></a><span class="badge">Private by design · Browser edition</span></header>
+<main>
+<div class="intro"><p class="eyebrow">A LITTLE MORE THOUGHT. A BETTER ARGUMENT.</p><h1>Start with your reasoning.</h1><p>Type an argument. Get a research-based quality estimate.<br>Your words stay in your browser.</p></div>
+<div class="layout">
+<section class="panel" aria-labelledby="input-title">
+<div class="heading"><h2 id="input-title">What’s your argument?</h2><button id="example" type="button" class="text-button">Try an example</button></div>
+<p class="hint">A claim and a reason are a good place to start. This model was trained on short English arguments.</p>
+<label for="argument">Your argument</label><textarea id="argument" rows="8" autocomplete="off" spellcheck="true" placeholder="We should take the bus because parking costs more than the fare." aria-describedby="counter length-note"></textarea>
+<div class="input-meta"><span id="length-note">Best suited to short arguments, roughly 35–245 characters.</span><span id="counter">0 / 4,000</span></div>
+<div class="actions"><button id="score" type="button" disabled>Score my argument</button><button id="clear" type="button" class="secondary">Clear</button></div>
+<p id="status" role="status" aria-live="polite"></p><p id="error" role="alert" hidden></p>
+<section id="result" hidden aria-labelledby="result-title"><div class="heading"><h2 id="result-title" tabindex="-1">Your quality estimate</h2><button id="copy" type="button" class="text-button">Copy result</button></div><div class="number"><span id="value"></span><span class="denominator"> / 100</span></div><meter id="meter" min="0" max="100" value="0" aria-label="Estimated IBM argument quality"></meter><p>This predicts how suitable an argument might be for use in a speech. It does not measure truth or determine who is right.</p><p id="warning" class="warning" hidden></p><p class="hint">Small score differences are not meaningful. Average test error was about 15 points out of 100; this is not a confidence interval for your argument.</p></section>
+</section>
+<aside><section class="explainer"><p class="eyebrow">NO INSTALLATION. NO ACCOUNT.</p><h2>Input first.<br>Then a second look.</h2><ol><li>Write one argument in your own words.</li><li>Click Score when you’re ready.</li><li>Use the estimate as a prompt to reflect, not a verdict.</li></ol><p>Nothing is scored while you type. Editing your argument clears the previous result.</p></section><section class="details"><h3>What runs here?</h3><p>A small model trained on IBM’s Argument Quality Ranking dataset runs entirely in this page. The first score downloads its weights; your text is never sent for inference.</p><p>This edition provides one overall estimate. It does not generate explanations, four rubric subscores, conversation rankings, or factual checks.</p><a href="https://github.com/Skyleriscool/argument-assessment#type-first-then-analyze">Explore the full local assessment app</a></section></aside>
+</div>
+<section class="about"><h2>Know what the number means.</h2><div class="facts"><div><strong>20,974</strong><span>training arguments</span></div><div><strong>6,315</strong><span>held-out test arguments</span></div><div><strong>15.05</strong><span>average absolute error, out of 100</span></div></div><p>The model learns patterns in wording, not a general theory of good reasoning. It can miss context and reward superficial phrasing. Scores are experimental and are not grades or judgments about people.</p><p><a href="https://github.com/Skyleriscool/argument-assessment/blob/main/MODEL_CARD.md">Model and limitations</a> · <a href="https://github.com/Skyleriscool/argument-assessment">Source code</a> · <a href="https://huggingface.co/datasets/ibm-research/argument_quality_ranking_30k">IBM dataset</a></p></section>
+</main><footer>Drafted with Codex (OpenAI), based on the author’s direction. Model trained on IBM data from Gretz et al. (2019).<br>No analytics, accounts, or transcript storage are added by this app. GitHub provides the page hosting.</footer>
+</body></html>
